@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  geth:
+    image: kasplex/geth:latest
+    container_name: geth
+    ports:
+      - "28545:28545"
+      - "28546:28546"
+      - "28551:28551"
+      - "30305:30305"
+      - "30305:30305/udp"
+    volumes:
+      - ${GETH_DATA_PATH:-./data}:/data
+      - ${JWT_FILE_PATH:-./jwt.txt}:/jwt.txt
+    environment:
+      - SYNCMODE=${SYNCMODE:-snap}  # Optional: snap, full
+      - BOOTNODES=${BOOTNODES}  # Required parameter
+      - CHAINID=${CHAINID:-167012}
+    restart: unless-stopped
+    networks:
+      - syncer-network
+
+  syncer:
+    image: kasplex/syncer:latest
+    container_name: syncer
+    volumes:
+      - ${JWT_FILE_PATH:-./jwt.txt}:/app/jwt.txt
+    environment:
+      - L2_WS=${L2_WS:-ws://geth:28546}
+      - L2_AUTH=${L2_AUTH:-http://geth:28551}
+      - JWT_SECRET=${JWT_SECRET:-/app/jwt.txt}
+      - P2P_CHECKPOINT_SYNC_URL=${P2P_CHECKPOINT_SYNC_URL}
+    depends_on:
+      - geth
+    restart: unless-stopped
+    networks:
+      - syncer-network
+
+networks:
+  syncer-network:
+    driver: bridge
