@@ -14,8 +14,8 @@ services:
       - ${GETH_DATA_PATH:-./data}:/data
       - ${JWT_FILE_PATH:-./jwt.txt}:/jwt.txt
     environment:
-      - SYNCMODE=${SYNCMODE:-snap}  # Optional: snap, full
-      - BOOTNODES=${BOOTNODES}  # Required parameter
+      - SYNCMODE=${SYNCMODE:-full}
+      - BOOTNODES=${BOOTNODES}
       - CHAINID=${CHAINID:-167012}
     restart: unless-stopped
     networks:

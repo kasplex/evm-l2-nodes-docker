@@ -2,9 +2,11 @@
 
 ## Project Overview
 
-This is a Docker-based Kasplex blockchain node deployment project, specifically designed for deploying Syncer mode in testnet environment:
+This is a Docker-based Kasplex blockchain node deployment project, designed for deploying Syncer mode in both mainnet and testnet environments:
 - **Operation Mode**: Syncer mode - Lightweight node for blockchain data synchronization
-- **Network Type**: Testnet - Testing environment network
+- **Network Types**: 
+  - **Mainnet** - Production environment network
+  - **Testnet** - Testing environment network (default)
 
 ## Project Architecture
 
@@ -13,6 +15,7 @@ This is a Docker-based Kasplex blockchain node deployment project, specifically 
 .
 ├── docker-compose/          # Docker Compose configuration files
 │   ├── envs/               # Environment variable files
+│   │   ├── syncer.mainnet.env   # Mainnet syncer environment configuration
 │   │   └── syncer.testnet.env   # Testnet syncer environment configuration
 │   └── syncer.yml          # Syncer service orchestration
 ├── docker/                 # Docker management tools
@@ -59,9 +62,14 @@ cd docker
 
 3. **Start the service**
 
-Start syncer mode (testnet):
+Start syncer mode (testnet, default):
 ```bash
 make start
+```
+
+Start syncer mode (mainnet):
+```bash
+make NETWORK_TYPE=mainnet start
 ```
 
 ## Service Management
@@ -72,20 +80,35 @@ make start
 # View help
 make help
 
-# Start service
+# Start service (testnet)
 make start
+
+# Start service (mainnet)
+make NETWORK_TYPE=mainnet start
 
 # Stop service
 make stop
 
+# Stop service (mainnet)
+make NETWORK_TYPE=mainnet stop
+
 # Restart service
 make restart
+
+# Restart service (mainnet)
+make NETWORK_TYPE=mainnet restart
 
 # View logs
 make logs
 
+# View logs (mainnet)
+make NETWORK_TYPE=mainnet logs
+
 # Check status
 make status
+
+# Check status (mainnet)
+make NETWORK_TYPE=mainnet status
 
 # Clean data
 make clean
@@ -96,11 +119,17 @@ make update-jwt
 
 ## Configuration
 
-### Testnet Configuration
+### Testnet Configuration (Default)
 - Bootstrap node: `enode://8e20c6dfcf1c356339311dfee6823cdfec613d92a62aa23657ad701c57e95b4fbe6ad08f2bd40175e90756c5b028e6f52e72f189230580cc8423ed24eef77405@54.154.73.46:30303`
 - Checkpoint sync: `ws://54.154.73.46:38546`
 - Environment file: `syncer.testnet.env`
 - Chain ID: 167012
+
+### Mainnet Configuration
+- Bootstrap node: `enode://bf0a7827b8dc4291880a9c0c14a049274af8da72dc0c3ad5df856a70d63404eaec26e98976a721d5b1390e6436591780e2de6ddd165e378b93cf10774326aab8@54.78.236.37:30305`
+- Checkpoint sync: `ws://54.78.236.37:28546`
+- Environment file: `syncer.mainnet.env`
+- Chain ID: 202555
 
 ### Environment Variables
 
