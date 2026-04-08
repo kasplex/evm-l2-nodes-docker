@@ -126,8 +126,8 @@ make update-jwt
 - Chain ID: 167012
 
 ### Mainnet Configuration
-- Bootstrap node: `enode://bf0a7827b8dc4291880a9c0c14a049274af8da72dc0c3ad5df856a70d63404eaec26e98976a721d5b1390e6436591780e2de6ddd165e378b93cf10774326aab8@54.78.236.37:30305`
-- Checkpoint sync: `ws://54.78.236.37:28546`
+- Bootstrap node: `enode://eff0708be09f41859dcbf59134fae73117dc98ab6e3af21d522e942d692857860ec89d7ae3f1c0783840bdc583426afaa5dbb1b6a36776cee3fa3d3a1ff98978@158.220.127.109:30305`
+- Checkpoint sync: `ws://158.220.127.109:28545`
 - Environment file: `syncer.mainnet.env`
 - Chain ID: 202555
 
